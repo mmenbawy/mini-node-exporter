@@ -5,8 +5,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/mmenbawy/mini-node-exporter/utils"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 func hostnameHandler(w http.ResponseWriter, r *http.Request) {
@@ -18,7 +18,7 @@ func hostnameHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Method is not supported.", http.StatusNotFound)
 		return
 	}
-	hostname, _ := getHostname()
+	hostname, _ := utils.GetHostname()
 	fmt.Fprintf(w, hostname)
 }
 
@@ -31,7 +31,7 @@ func uptimeHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Method is not supported.", http.StatusNotFound)
 		return
 	}
-	uptime, _ := utils.getUptime()
+	uptime, _ := utils.GetUptime()
 	fmt.Fprintf(w, uptime)
 }
 
@@ -46,13 +46,13 @@ func loadHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", "application/json")
 
-	load, _ := utils.getLoad()
+	load, _ := utils.GetLoad()
 	fmt.Fprintf(w, load)
 }
 
 func main() {
-	utils.setUptime()
-	utils.setLoad()
+	utils.SetUptime()
+	utils.SetLoad()
 
 	http.HandleFunc("/info/hostname", hostnameHandler)
 	http.HandleFunc("/info/uptime", uptimeHandler)

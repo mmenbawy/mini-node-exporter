@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-func getUptime() (loads string, err error) {
+func GetUptime() (loads string, err error) {
 	dat, err := ioutil.ReadFile("/proc/uptime")
 	if err != nil {
 		return "", err

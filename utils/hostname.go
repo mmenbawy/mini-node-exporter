@@ -4,7 +4,7 @@ import (
 	"io/ioutil"
 )
 
-func getHostname() (loads string, err error) {
+func GetHostname() (loads string, err error) {
 	// cat /proc/sys/kernel/hostname
 	dat, err := ioutil.ReadFile("/proc/sys/kernel/hostname")
 	if err != nil {

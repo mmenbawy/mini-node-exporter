@@ -32,8 +32,8 @@ func init() {
 	prometheus.MustRegister(load)
 }
 
-func setUptime() {
-	uptimeStr, _ := getUptime()
+func SetUptime() {
+	uptimeStr, _ := GetUptime()
 	uptimefloat, err := strconv.ParseFloat(uptimeStr, 2)
 	if err != nil {
 		return
@@ -41,8 +41,8 @@ func setUptime() {
 	uptime.Set(uptimefloat)
 }
 
-func setLoad() {
-	loadStr, _ := getLoad()
+func SetLoad() {
+	loadStr, _ := GetLoad()
 	loadMap := make(map[string]float64)
 	err := json.Unmarshal([]byte(loadStr), &loadMap)
 	if err != nil {

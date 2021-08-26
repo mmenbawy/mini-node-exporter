@@ -24,7 +24,7 @@ func parseLoad(l string) (datas []byte, err error) {
 	return loadJson, err
 }
 
-func getLoad() (loads string, err error) {
+func GetLoad() (loads string, err error) {
 	dat, err := ioutil.ReadFile("/proc/loadavg")
 	if err != nil {
 		return "", err
