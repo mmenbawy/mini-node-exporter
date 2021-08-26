@@ -13,3 +13,18 @@ A web server that expose prometheus metrics on `/metrics`
 
 - `node_load`: load average, with a label for three duration
 - `node_uptime`: uptime of the system in seconds
+
+## Docker
+
+### Pull image
+
+`docker pull mostafaelmenbawy/mini-node-exporter:latest`
+
+### Run container
+
+```sh
+docker run --name mini-node-exporter
+           -v     /proc:/proc:ro
+           -e     23333:23333
+            mostafaelmenbawy/mini-node-exporter:latest
+```
