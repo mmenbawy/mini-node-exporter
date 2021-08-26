@@ -34,6 +34,3 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: mostafaelmenbawy/mini-node-exporter:latest
-      -
-        name: Image digest
-        run: echo ${{ steps.docker_build.outputs.digest }}
