@@ -3,19 +3,21 @@ package utils
 import (
 	"encoding/json"
 	"strconv"
+	"time"
 
 	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promauto"
 )
 
 var (
-	uptime = prometheus.NewGauge(
+	uptime = promauto.NewGauge(
 		prometheus.GaugeOpts{
 			Namespace: "node",
 			Name:      "uptime",
 			Help:      "uptime of the system in seconds",
 		},
 	)
-	load = prometheus.NewGaugeVec(
+	load = promauto.NewGaugeVec(
 		prometheus.GaugeOpts{
 			Namespace: "node",
 			Name:      "load",
@@ -26,30 +28,34 @@ var (
 		})
 )
 
-func init() {
-	// Metrics have to be registered to be exposed:
-	prometheus.MustRegister(uptime)
-	prometheus.MustRegister(load)
-}
-
 func SetUptime() {
-	uptimeStr, _ := GetUptime()
-	uptimefloat, err := strconv.ParseFloat(uptimeStr, 2)
-	if err != nil {
-		return
-	}
-	uptime.Set(uptimefloat)
+	go func() {
+		for {
+			uptimeStr, _ := GetUptime()
+			uptimefloat, err := strconv.ParseFloat(uptimeStr, 2)
+			if err != nil {
+				return
+			}
+			uptime.Set(uptimefloat)
+			time.Sleep(10 * time.Millisecond)
+		}
+	}()
 }
 
 func SetLoad() {
-	loadStr, _ := GetLoad()
-	loadMap := make(map[string]float64)
-	err := json.Unmarshal([]byte(loadStr), &loadMap)
-	if err != nil {
-		return
-	}
+	go func() {
+		for {
+			loadStr, _ := GetLoad()
+			loadMap := make(map[string]float64)
+			err := json.Unmarshal([]byte(loadStr), &loadMap)
+			if err != nil {
+				return
+			}
 
-	load.With(prometheus.Labels{"duration": "1m"}).Set(loadMap["1m"])
-	load.With(prometheus.Labels{"duration": "5m"}).Set(loadMap["5m"])
-	load.With(prometheus.Labels{"duration": "15m"}).Set(loadMap["15m"])
+			load.With(prometheus.Labels{"duration": "1m"}).Set(loadMap["1m"])
+			load.With(prometheus.Labels{"duration": "5m"}).Set(loadMap["5m"])
+			load.With(prometheus.Labels{"duration": "15m"}).Set(loadMap["15m"])
+			time.Sleep(1 * time.Second)
+		}
+	}()
 }
