@@ -23,9 +23,8 @@ A web server that expose prometheus metrics on `/metrics`
 ### Run container
 
 ```sh
-docker run --name mini-node-exporter \
-           -v     /proc:/proc \
-           -p     23333:23333 \
+docker run --name        mini-node-exporter \
+           --network     host \
            --rm \
             mostafaelmenbawy/mini-node-exporter:latest
 ```
