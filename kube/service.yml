@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: mini-node-exporter
+  name: mini-node-exporter
+spec:
+  ports:
+  - port: 23333
+    protocol: TCP
+    targetPort: 23333
+  selector:
+    app.kubernetes.io/name: mini-node-exporter

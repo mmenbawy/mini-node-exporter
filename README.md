@@ -23,8 +23,26 @@ A web server that expose prometheus metrics on `/metrics`
 ### Run container
 
 ```sh
-docker run --name        mini-node-exporter \
-           --network     host \
-           --rm \
+docker run --name     mini-node-exporter \
+           --network  host               \
+           --rm                          \
             mostafaelmenbawy/mini-node-exporter:latest
+```
+
+## Monitoring Helm Charts
+
+### Prometheus
+
+```sh
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update
+helm install [RELEASE_NAME] prometheus-community/prometheus -f ./kube/values/prometheus.yml
+```
+
+### Grafana
+
+```sh
+helm repo add grafana https://grafana.github.io/helm-charts
+helm repo update
+helm install [RELEASE_NAME] grafana/grafana -f ./kube/values/grafana.yml
 ```

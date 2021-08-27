@@ -1,0 +1,19 @@
+server:
+  image:
+    repository: prom/prometheus
+    tag: v2.28.0
+  persistentVolume:
+    enabled: false
+    storageClass: default
+    accessModes: 
+      - ReadWriteMany
+    size: 1Gi
+  service:
+    type: NodePort
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 500m
+      memory: 512Mi

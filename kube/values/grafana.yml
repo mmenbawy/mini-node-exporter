@@ -1,0 +1,19 @@
+admin:
+  existingSecret: "grafana-secret"
+  userKey: "admin-user"
+  passwordKey: "admin-password"
+service:
+  type: NodePort
+persistence:
+  type: pvc
+  enabled: false
+  storageClass: default
+  accessModes: 
+    - ReadWriteMany
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
