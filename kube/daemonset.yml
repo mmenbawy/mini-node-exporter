@@ -15,16 +15,18 @@ spec:
         app.kubernetes.io/name: mini-node-exporter
     spec:
       hostNetwork: true
+      # hostPID: true
       containers:
       - image: mostafaelmenbawy/mini-node-exporter:latest
         imagePullPolicy: IfNotPresent
         name: mini-node-exporter
         ports:
         - containerPort: 23333
+          hostPort: 23333
         resources:
           requests:
-            cpu: 100m
-            memory: 200Mi
+            cpu: 500m
+            memory: 400Mi
           limits:
-            cpu: 100m
-            memory: 200Mi
+            cpu: 500m
+            memory: 400Mi

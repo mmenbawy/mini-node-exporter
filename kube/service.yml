@@ -3,11 +3,17 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/name: mini-node-exporter
+  annotations:
+    prometheus.io/port: metrics
+    prometheus.io/scrape: "true"
+    prometheus.io/path: "metrics"
   name: mini-node-exporter
 spec:
   ports:
-  - port: 23333
+  - name: metrics
+    port: 23333
     protocol: TCP
     targetPort: 23333
   selector:
     app.kubernetes.io/name: mini-node-exporter
+  type: ClusterIP
