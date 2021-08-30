@@ -36,7 +36,7 @@ docker run --name     mini-node-exporter \
 ```sh
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo update
-helm install [RELEASE_NAME] prometheus-community/prometheus -f ./kube/values/prometheus.yml
+helm install [RELEASE_NAME] prometheus-community/prometheus -f ./kube/helm-values/prometheus.yml
 ```
 
 ### Grafana
@@ -44,5 +44,5 @@ helm install [RELEASE_NAME] prometheus-community/prometheus -f ./kube/values/pro
 ```sh
 helm repo add grafana https://grafana.github.io/helm-charts
 helm repo update
-helm install [RELEASE_NAME] grafana/grafana -f ./kube/values/grafana.yml
+helm install [RELEASE_NAME] grafana/grafana -f ./kube/helm-values/grafana.yml
 ```
