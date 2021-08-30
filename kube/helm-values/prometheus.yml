@@ -3,7 +3,7 @@ server:
     repository: prom/prometheus
     tag: v2.28.0
   persistentVolume:
-    enabled: false
+    enabled: true
     storageClass: default
     accessModes: 
       - ReadWriteMany

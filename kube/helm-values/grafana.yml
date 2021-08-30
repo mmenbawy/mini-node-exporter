@@ -6,7 +6,7 @@ service:
   type: NodePort
 persistence:
   type: pvc
-  enabled: false
+  enabled: true
   storageClass: default
   accessModes: 
     - ReadWriteMany
